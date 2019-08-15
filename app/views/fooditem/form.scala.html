@@ -1,0 +1,40 @@
+@import helper._
+
+@(user: User, fa: FoodCollection, form: Form[FoodItem], categories: List[FoodCategory], collectionRoute: Call)
+
+
+@main("Add food item")(user){
+
+    <div class="jumbotron col-md-10 offset-md-1">
+        <h3>Enter a food item to this collection...</h3>
+        <p>Items in this collection so far: @fa.getItems().size()</p>
+
+        @helper.form(action = routes.FoodItemController.create(fa.getId()), 'class -> "form-group") {
+            @helper.CSRF.formField
+
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" placeholder="Approximate weight" class="form-control" required>
+
+            <label for="unit">Unit</label>
+            <select class="custom-select form-control" id="unit" name="unit">
+                <option selected>Choose...</option>
+
+                @for(unit <- FoodItem.Unit.values()) {
+                    <option value="@unit" name="@unit">@unit</option>
+                }
+            </select>
+
+            <label for="category">Category</label>
+            <select class="custom-select form-control" id="categoryid" name="categoryid">
+                <option selected>Choose...</option>
+
+                @for(category <- categories) {
+                    <option value="@category.getId()" name="@category.getName()">@category.getName()</option>
+                }
+            </select>
+
+            <input type="submit" class="btn btn-lg btn-primary form-control">
+            <a href="@collectionRoute" class="btn btn-danger form-control">Back to collection</a>
+        }
+    </div>
+}

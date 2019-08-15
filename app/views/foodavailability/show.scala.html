@@ -1,0 +1,51 @@
+
+
+@(supplier: Supplier, fa: FoodAvailability)
+
+@collector(fa: FoodAvailability) = {
+    Collector:
+    @if(fa.getComingDelivery() == null) {
+        No Deliverer chose this yet.
+    } else {
+        @fa.getComingDelivery().getDeliverer().getName()
+    }
+}
+
+@main("Food Availability")(supplier) {
+
+    <div class="jumbotron col-md-10 offset-md-1">
+        <h3>Available food</h3>
+        <p>
+            @collector(fa)
+            <br>
+            Collection time: @fa.getAvailableTimeStart()
+            <br>
+            Collection by:   @fa.getAvailableTimeEnd()
+        </p>
+
+        @if(fa.getItems().size() > 0) {
+            <table class="table mt-4">
+                <thead class="thead-dark ">
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Unit</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @for(fi <- fa.getItems()){
+                        <tr>
+                            <td>@fi.getAmount()</td>
+                            <td>@fi.getUnit()</td>
+                            <td>@fi.getCategory().getName()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        @if(fa.isStillAvailable) {
+            <a href="@routes.FoodItemController.form(fa.getId())" class="btn btn-info w-100" role="button">Add Another Food Item</a>
+        }
+    </div>
+}

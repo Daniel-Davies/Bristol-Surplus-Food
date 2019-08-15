@@ -1,0 +1,28 @@
+@import helper._
+
+@(beneficiary: Beneficiary, form: Form[FoodRequest])
+
+@main("Request food")(beneficiary) {
+
+    <div class="jumbotron col-md-10 offset-md-1">
+        <h3>Publish request for food donations</h3>
+
+        @helper.form(action = routes.FoodRequestController.create(), 'class -> "form-group") {
+            @helper.CSRF.formField
+
+            <label>Time of delivery</label>
+            @datetimepicker("availableTimeStart")
+
+            <label>Last possible delivery</label>
+            @datetimepicker("availableTimeEnd")
+
+            <label for="info">Any other information</label>
+            <textarea class="form-control available-input" id="info" name="info" placeholder="Write anything else that you think the deliverer should know" style="height:200px"></textarea>
+
+
+            <input class="form-control btn btn-primary" type="submit" value="Submit and register food items">
+            <a class="form-control btn btn-danger" type="button" href="@routes.HomeController.index()">Back to dashboard</a>
+
+        }
+    </div>
+}

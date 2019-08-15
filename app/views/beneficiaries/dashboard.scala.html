@@ -1,0 +1,29 @@
+
+@(b: Beneficiary)
+
+
+
+@main("Dashboard")(b) {
+
+    <a href="@routes.FoodRequestController._new" class="btn btn-info btn-lg mb-5" role="button">
+        Request food donations
+    </a>
+
+    @if(b.getPending().size > 0) {
+
+        @frList("Pending requests", b.getPending())
+    }
+
+
+
+    @if(b.getPrevious().size > 0) {
+
+        @frList("Previous requests", b.getPrevious.take(3))
+
+        @if(b.getPrevious().size > 3) {
+            <a href="@routes.FoodRequestController.index" class="d-block pt-4">
+                &rarr; See all previous requests
+            </a>
+        }
+    }
+}

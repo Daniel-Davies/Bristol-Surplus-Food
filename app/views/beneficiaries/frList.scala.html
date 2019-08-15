@@ -1,0 +1,45 @@
+
+@(title: String, collection: List[FoodRequest])
+
+<h3 class="pt-3">@title</h3>
+
+<div class="list-group">
+
+    @for((fr, i) <- collection.zipWithIndex) {
+
+    <a href="@routes.FoodRequestController.show(fr.getId())"
+       class="list-group-item list-group-item-action">
+
+        @if(fr.isStillAvailable) {
+            <h5>Food request #@{i + 1} </h5>
+
+            <p>
+                @deliverer(fr)
+                <br>
+                Delivery time after: @fr.getAvailableTimeStart()
+                <br>
+                Delivery time before: @fr.getAvailableTimeEnd()
+            </p>
+        } else {
+            <h5>Previous food request #@{i + 1} </h5>
+
+            <p>
+                @deliverer(fr)
+                <br>
+                Delivered on: @fr.getAvailableTimeEnd()
+            </p>
+        }
+
+    </a>
+    }
+</div>
+
+
+@deliverer(fr: FoodRequest) = {
+    Deliverer:
+    @if(fr.getComingDelivery() == null) {
+        No Deliverer scheduled the request yet.
+    } else {
+        @fr.getComingDelivery().getDeliverer().getName()
+    }
+}

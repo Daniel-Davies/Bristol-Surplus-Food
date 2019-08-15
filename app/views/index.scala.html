@@ -1,0 +1,21 @@
+@*
+ * This template takes a single argument, a String containing a
+ * message to display.
+ *@
+@(message: String)(u: User)
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+@main("")(u) {
+<br><br><br><br>
+<div class="jumbotron col-md-6 offset-md-3 text-center">
+ <h1><strong>Welcome To Bristol Surplus Food!</strong></h1>
+ <br>
+ <p>@message</p>
+ <a href="@routes.HomeController.login" class="btn btn-primary" type="button">Log In</a>
+ <a href="@routes.HomeController.register" class="btn btn-info" type="button">Register</a>
+</div>
+}

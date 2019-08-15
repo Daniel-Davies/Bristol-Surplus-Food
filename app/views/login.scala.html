@@ -1,0 +1,22 @@
+@import helper._
+
+@(url: String, form: DynamicForm)
+
+
+@main("Login")(null) {
+    <div class="jumbotron col-md-6 col-sm-8 offset-sm-2 offset-md-3">
+        <h3>Login</h3>
+
+        <form action="@url" method="POST">
+            @CSRF.formField
+
+            @inputText(form("email"), 'required -> true, 'class -> "form-control", '_label -> "Email")
+            @inputPassword(form("password"), 'required -> true, 'class -> "form-control", '_label -> "Password")
+
+            <input class="btn btn-primary form-control"  type="submit" name="submit" value="Submit" />
+            <a class="btn form-control bg-info" href = "@routes.HomeController.register">Want to join? Sign up now!</a>
+
+
+        </form>
+    </div>
+}

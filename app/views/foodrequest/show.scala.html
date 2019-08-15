@@ -1,0 +1,51 @@
+
+
+@(b: Beneficiary, fr: FoodRequest)
+
+@deliverer(fr: FoodRequest) = {
+    Deliverer:
+    @if(fr.getComingDelivery() == null) {
+        No Deliverer scheduled the request yet.
+    } else {
+        @fr.getComingDelivery().getDeliverer().getName()
+    }
+}
+
+@main("Food Request")(b) {
+
+    <div class="jumbotron col-md-10 offset-md-1">
+        <h3>Requested food</h3>
+        <p>
+            @deliverer(fr)
+            <br>
+            Delivery time after: @fr.getAvailableTimeStart()
+            <br>
+            Delivery time before: @fr.getAvailableTimeEnd()
+        </p>
+
+        @if(fr.getItems().size() > 0) {
+            <table class="table mt-4">
+                <thead class="thead-dark ">
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Unit</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @for(fi <- fr.getItems()){
+                        <tr>
+                            <td>@fi.getAmount()</td>
+                            <td>@fi.getUnit()</td>
+                            <td>@fi.getCategory().getName()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        @if(fr.isStillAvailable) {
+            <a href="@routes.FoodItemController.form(fr.getId())" class="btn btn-info w-100" role="button">Add Another Food Item</a>
+        }
+    </div>
+}

@@ -1,0 +1,97 @@
+
+
+// Variables
+$font-family-sans-serif: 'Nunito', -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-weight-bold: 600;
+$primary: #5fcf80;
+
+$unit: 20px;
+
+@import "bootstrap/bootstrap";
+
+
+
+// General styles
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+        text-decoration: none;
+        outline: none;
+    }
+
+    .btn {
+        margin-top: $unit;
+        -webkit-appearance: none !important;
+           -moz-appearance: none !important;
+           appearance:      none !important;
+    }
+
+    .jumbotron {
+        padding: 2rem;
+    }
+
+
+    nav {
+        background-color: $primary;
+        color: white;
+        margin-bottom: 1em;
+
+        .navbar-nav {
+            padding: 0;
+            flex-direction: row;
+        }
+
+        .navbar-nav li {
+            transition: 0.3s ease;
+            background: $primary;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            border-top: 4px solid $primary;
+            border-bottom: 4px solid $primary;
+            margin: 0 10px;
+        }
+
+        .navbar-nav li:hover {
+            border-top: 4px solid white;
+            border-bottom: 4px solid white;
+        }
+
+        .navbar-brand {
+            font-size: $h2-font-size;
+        }
+        a {
+            color: white;
+        }
+    }
+
+    main.container {
+        padding-bottom: 3rem;
+    }
+
+    footer {
+        padding: 0px;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        background-color: $primary;
+        width: 100%;
+        color: white;
+        text-align: center;
+    }
+
+    .form-control {
+        -webkit-appearance: none;
+    }
+
+    .form-group label {
+        margin-top: 1em;
+    }
+
+

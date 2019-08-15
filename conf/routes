@@ -1,0 +1,59 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Root page
+GET     /                           controllers.HomeController.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+# Auth routes
+GET     /login                       controllers.HomeController.login
+GET     /callback                    @org.pac4j.play.CallbackController.callback()
+POST    /callback                    @org.pac4j.play.CallbackController.callback()
+GET     /logout                      @org.pac4j.play.LogoutController.logout()
+
++ nocsrf
+POST     /token                       controllers.UserController.jwt()
+
+
+# User CRUD routes
+
++ nocsrf
+POST     /user                       controllers.UserController.create
+
+GET     /settings                    controllers.UserController.edit
+GET     /register                    controllers.HomeController.register
+POST    /settings                      controllers.UserController.update
+
+
+# Foodavailability CRUD routes
+
+GET     /foodavailability/new       controllers.FoodAvailabilityController._new
+POST    /foodavailability           controllers.FoodAvailabilityController.create
+GET     /foodavailability           controllers.FoodAvailabilityController.index
+GET     /foodavailability/:id       controllers.FoodAvailabilityController.show(id: Int)
+
+
+# Foodrequest CRUD routes
+
+GET     /foodrequest/new            controllers.FoodRequestController._new
+POST    /foodrequest                controllers.FoodRequestController.create
+GET     /foodrequest                controllers.FoodRequestController.index
+GET     /foodrequest/:id            controllers.FoodRequestController.show(id: Int)
+
+
+# FoodItems CRUD
+
+GET     /foodcollection/:fcId/fooditem controllers.FoodItemController.form(fcId: Int)
+POST    /foodcollection/:fcId/fooditem controllers.FoodItemController.create(fcId: Int)
+
+
+#JSON endpoints for the Android app
+
+GET     /app/foodavailability          controllers.FoodAvailabilityController.index_json
+GET     /app/foodrequest               controllers.FoodRequestController.index_json
+POST    /app/delivery                  controllers.DeliveryController.create
+POST    /app/user                      controllers.UserController.updateJson

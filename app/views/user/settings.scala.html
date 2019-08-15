@@ -1,0 +1,25 @@
+@import helper._
+@(user: User, form: Form[User])
+
+@main("Settings")(user) {
+
+    <div class="jumbotron col-md-8 offset-md-2">
+        <h3>Settings</h3>
+
+        @helper.form(routes.UserController.update(), 'class -> "form-group") {
+            @helper.CSRF.formField
+
+            @inputText(form("name"), 'required -> true, 'class -> "form-control", '_label -> "Name")
+
+            @inputText(form("address"), 'required -> true, 'class -> "form-control", '_label -> "Address")
+
+
+            <input type="submit" class="btn btn-primary form-control" value="Save Changes"/>
+
+            <a href="@routes.HomeController.index()" type="button" class="form-control btn btn-info">
+                Go Back To Dashboard
+            </a>
+        }
+    </div>
+
+}

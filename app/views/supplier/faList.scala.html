@@ -1,0 +1,45 @@
+
+@(title: String, collection: List[FoodAvailability])
+
+<h3 class="pt-3">@title</h3>
+
+<div class="list-group">
+
+    @for((fa, i) <- collection.zipWithIndex) {
+
+    <a href="@routes.FoodAvailabilityController.show(fa.getId())"
+       class="list-group-item list-group-item-action">
+
+        @if(fa.isStillAvailable) {
+            <h5>Available food #@{i + 1} </h5>
+
+            <p>
+                @collector(fa)
+                <br>
+                Collection time: @fa.getAvailableTimeStart()
+                <br>
+                Collection by:   @fa.getAvailableTimeEnd()
+            </p>
+        } else {
+            <h5>Previously available food #@{i + 1} </h5>
+
+            <p>
+                @collector(fa)
+                <br>
+                Collection on: @fa.getAvailableTimeStart()
+            </p>
+        }
+
+    </a>
+    }
+</div>
+
+
+@collector(fa: FoodAvailability) = {
+    Collector:
+    @if(fa.getComingDelivery() == null) {
+        No Deliverer chose this yet.
+    } else {
+        @fa.getComingDelivery().getDeliverer().getName()
+    }
+}

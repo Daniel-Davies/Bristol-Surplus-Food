@@ -1,0 +1,33 @@
+@import helper._
+
+@(form: Form[User])(u: User)
+
+
+@main("Sign Up")(u) {
+
+    <div class="jumbotron col-md-8 offset-md-2">
+        <h3>Register here!</h3>
+
+        @helper.form(action = routes.UserController.create(), 'class -> "form-group") {
+            @CSRF.formField
+
+            @inputRadioGroupp(
+                form("type"),
+                options = Seq("Beneficiary" -> "Beneficiary", "Supplier" -> "Supplier", "Deliverer" -> "Deliverer"),
+                '_label -> "Type"
+            )
+
+            @inputText(form("name"), 'required -> true, 'class -> "form-control", '_label -> "Name")
+            @inputText(form("address"), 'required -> true, 'class -> "form-control", '_label -> "Address")
+            @inputText(form("email"), 'required -> true, 'class -> "form-control", '_label -> "Email")
+            @inputPassword(form("password"), 'required -> true, 'class -> "form-control", '_label -> "Password")
+            @inputPassword(form("password_confirmation"), 'required -> true, 'class -> "form-control", '_label -> "Confirm Your Password")
+
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+        }
+    </div>
+
+}
+
+
+
